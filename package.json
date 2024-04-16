@@ -1,0 +1,19 @@
+{
+  "name": "ecotec",
+  "version": "1.0.0",
+  "description": "Este es nuestro servidor en Node.js",
+  "main": "servidor.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/idaliasaenz4/EcoTec.git"
+  },
+  "author": "EcoTec",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/idaliasaenz4/EcoTec/issues"
+  },
+  "homepage": "https://github.com/idaliasaenz4/EcoTec#readme"
+}
