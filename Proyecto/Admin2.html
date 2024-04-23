@@ -1,86 +1,81 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ECOTecNM Delicias</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .navbar-brand {
-            flex-grow: 1; /* Permite que el elemento crezca y ocupe el espacio disponible */
-        }
-        .card-img-overlay {
-            background-color: rgba(0, 0, 0, 0.5);
-            padding: 0.5rem;
-            color: #fff;
-        }
-    </style>
+    <link rel="stylesheet" href="css/admin2.css">
 </head>
 <body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">
-            <div class="d-flex align-items-center">
-                <i class="fas fa-user-circle fa-3x mr-3"></i>
-                <h2 class="mb-0">ECOTecNM Delicias</h2>
+    <header>
+        <div class="header-container">
+            <div class="profile-icon">
+                <img src="profile-icon.png" alt="Administrador">
             </div>
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <button class="btn btn-success">Cerrar sesión</button>
-                </li>
-            </ul>
+            <h1>ECOTecNM Delicias</h1>
+            <p>¡Tu voz por un campus Mejor!</p>
         </div>
-    </nav>
-    <div class="container-fluid">
-        <div class="row">
-            <div class="col-3 bg-primary text-white p-3">
-                <p>Administrador</p>
-                <p>¡Tu voz por un campus mejor!</p>
-                <div class="form-group">
-                    <select class="form-control">
-                        <option>Seleccione un filtro</option>
-                        <option>Reporte</option>
-                        <option>Sugerencia</option>
-                        <option>Queja</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-9">
-                <div class="row">
-                    <div class="col-3 mb-3">
-                        <div class="card">
-                            <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="...">
-                            <div class="card-img-overlay">
-                                <h5 class="card-title">Título Problema</h5>
-                                <p class="card-text">Descripción Corta</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-9">
-                        <div class="row">
-                            <div class="col-3 mb-3">
-                                <div class="card">
-                                    <img src="https://via.placeholder.com/300x200" class="card-img-top" alt="...">
-                                    <div class="card-img-overlay">
-                                        <h5 class="card-title">Título Problema</h5>
-                                        <p class="card-text">Descripción Corta</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    </header>
+    <main>
+        <div class="report-container">
+            <h2><input type="text" value="Título del Problema"></h2>
+            <p><textarea>En una pequeña comunidad, la disponibilidad de agua potable se ha convertido en un problema crítico. La única fuente de agua local, un manantial, ha experimentado una disminución drástica en su caudal debido a factores climáticos impredecibles y el aumento de la demanda de agua de la creciente población. Los residentes se enfrentan a interrupciones frecuentes en el suministro de agua y la calidad del agua ha disminuido, lo que plantea riesgos para la salud.</textarea></p>
 
-    <script src="https://kit.fontawesome.com/your-font-awesome-kit.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+            <div class="verification-container">
+                <h3>Verificación para envío a administración</h3>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" checked readonly> Reporte verificado
+                    </label>
+                    <label>
+                        <input type="checkbox" readonly> Adjuntar imágenes
+                    </label>
+                    <label>
+                        <input type="checkbox" checked readonly> Prioridad alta
+                    </label>
+                    <label>
+                        <input type="checkbox" readonly> Prioridad media
+                    </label>
+                </div>
+            </div>
+            <div class="comment-container">
+                <h3>Comentario del Administrador al problema publicado</h3>
+                <textarea></textarea>
+                <div class="image-upload-container">
+                    <input type="file" id="image-upload" accept="image/*">
+                    <button onclick="uploadImage()">Subir Imagen</button>
+                    <div id="image-preview"></div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button>Enviar</button>
+                <button>Enviar Reporte</button>
+                <button>Eliminar Reporte</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <button>Cerrar sesión</button>
+    </footer>
+    <script>
+        function uploadImage() {
+            const fileInput = document.getElementById('image-upload');
+            const preview = document.getElementById('image-preview');
+            
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            
+            reader.addEventListener('load', function () {
+                const image = new Image();
+                image.src = reader.result;
+                preview.innerHTML = '';
+                preview.appendChild(image);
+            }, false);
+            
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+    </script>
 </body>
 </html>

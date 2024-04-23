@@ -1,10 +1,90 @@
-.sidebar::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 20px; /* Altura de la barra azul */
-    background-color: #4A54F1;
-    z-index: -1;
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #0066cc; /* Azul oscuro */
+    color: white;
+    padding: 10px;
+}
+
+.header-container {
+    text-align: left;
+}
+
+.header-container .Campus {
+    text-align: right; /* Para evitar que el texto dentro de .Campus se vea afectado */
+}
+
+
+.profile-icon img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+    background-color: #cccccc; /* Gris claro */
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    background-color: #f2f2f2; /* Gris muy claro */
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav ul li {
+    margin-right: 20px;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    grid-gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background-color: #f2f2f2; /* Gris muy claro */
+    padding: 10px;
+    text-align: center;
+}
+
+.card-img img {
+    max-width: 100%;
+    height: auto;
+    background-color: #cccccc; /* Gris claro */
+}
+
+footer {
+    background-color: #0066cc; /* Azul oscuro */
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+footer button {
+    background-color: #00cc66; /* Verde */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+
+#filtro {
+    text-align: left;
 }
