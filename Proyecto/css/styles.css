@@ -1,34 +1,75 @@
-.navbar{
-    min-height: 70px;
-    -webkit-box-shadow: 5px 0 10px rgba(0,0,0,.1);
-    box-shadow: 0 0 20px rgba(0,0,0,.1);
-    background-color: #fff;
-    position: fixed;
-    top: 0;
-    right: 0;
-    left: 0;
-    z-index: 1030;
-}
-.menus{
-    text-align: center;
-    text-transform: uppercase;
-    float: right;
-    padding-right: 20px;
-}
-.titleEco{
-    padding-left: 30px;
-    text-decoration: none;    
-}
-.card-deck{
+/* Estilos para la barra de navegación */
+nav {
     display: flex;
-    flex-flow: row wrap;
-    margin-right: -.25rem;
-    margin-left: -.25rem;
+    justify-content: space-between;
+    align-items: center;
+    background-color: blue;
+    color: #fff;
+    padding: 35px;
+    padding-left: 4%;
+    font-size: 1.5rem;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
-.contenedor{
-    background-color: beige;
-    text-align: center;
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav li {
+    margin-right: 20px;
+}
+
+nav a {
+    color: #fff;
+    text-decoration: none;
+    padding-left: 35;
+}
+nav a:hover{
+    color: aquamarine;
+}
+
+.logo {
+    font-weight: bold;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 2.0rem;
+    padding-right: 1%;
+}
+
+/* Estilos para las tarjetas */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
     padding: 20px;
-    max-width: 300px;
-    margin: 20px auto;
+}
+
+.card {
+    background-color:whitesmoke;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.card h3 {
+    margin-top: 10px;
+}
+
+.card p {
+    margin-top: 5px;
+    color: #666;
+}
+body{
+    height: 100hv;
+    background-color:white;
+    background-size: cover;
+    background-position: center;
 }
