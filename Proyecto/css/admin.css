@@ -3,7 +3,15 @@ body {
     margin: 0;
     padding: 0;
 }
-
+header, footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+}
+main {
+    padding: 20px;
+}
 header {
     background-color: #0066cc; /* Azul oscuro */
     color: white;
@@ -20,11 +28,14 @@ header {
 
 
 .profile-icon img {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-    background-color: #cccccc; /* Gris claro */
+
+        width: 80px; /* Aumentar el ancho de la imagen */
+        height: 80px; /* Aumentar la altura de la imagen */
+        border-radius: 50%;
+        margin-right: 10px;
+        background-color: #cccccc; /* Gris claro */
+    
+    
 }
 
 nav {
@@ -43,26 +54,35 @@ nav ul {
 }
 
 nav ul li {
-    margin-right: 20px;
-}
-
+    margin-right: 20px;}
 .card-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    grid-gap: 20px;
-    padding: 20px;
+    display: flex;
 }
-
+.card p {
+    font-size: 14px;
+    color: #555;
+}
 .card {
-    background-color: #f2f2f2; /* Gris muy claro */
-    padding: 10px;
-    text-align: center;
+    width: calc(25% - 20px);
+            background-color: #f4f4f4;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            padding: 10px;
+            box-sizing: border-box;
+}
+.card h3 {
+    margin: 0;
+    font-size: 18px;
+}
+.card:last-child {
+    margin-right: 0; /* Eliminar margen derecho para la última tarjeta */
 }
 
-.card-img img {
-    max-width: 100%;
-    height: auto;
-    background-color: #cccccc; /* Gris claro */
+.card img {
+    width: 100%;
+    border-radius: 5px;
+    margin-bottom: 10px;
 }
 
 footer {
@@ -73,18 +93,22 @@ footer {
 }
 
 footer button {
-    background-color: #00cc66; /* Verde */
+    background-color: #007bff;
     color: white;
     border: none;
     padding: 10px 20px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    margin: 4px 2px;
+    border-radius: 5px;
     cursor: pointer;
 }
 
 #filtro {
     text-align: left;
 }
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 20px;
+}
+
+
