@@ -152,7 +152,7 @@ body{
     display: block;
     font-weight: bold;
     margin-bottom: 5px;
-    color: #555;
+    color: white;
 }
 
 .form-group input,
@@ -200,6 +200,7 @@ body{
         max-height: 100%;
         object-fit: cover;
     }
+
     .container {
         position: absolute;
         top: 50%;
@@ -208,21 +209,22 @@ body{
         text-align: center;
         width: 80%; /* Ajusta el ancho del contenedor según sea necesario */
         max-width: 400px; /* Establece un ancho máximo para evitar que el contenedor se vuelva demasiado grande */
+        background-color: rgba(30, 30, 30, 0.8); /* Color de fondo oscuro con transparencia */
+        padding: 20px;
+        border-radius: 10px; /* Bordes redondeados */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    }
+    
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #fff; /* Color del texto blanco */
     }
     
     form {
         width: 100%; /* Hacer que el formulario ocupe todo el ancho del contenedor */
         max-width: 300px; /* Establecer un ancho máximo para el formulario */
         margin: 0 auto; /* Centrar horizontalmente el formulario dentro del contenedor */
-        padding: 20px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-        background-color: #f9f9f9;
-    }
-    
-    h1 {
-        text-align: center;
-        margin-bottom: 30px;
     }
     
     .form-group {
@@ -233,6 +235,7 @@ body{
         display: block;
         font-weight: bold;
         margin-bottom: 5px;
+        color: #ddd; /* Color del texto más claro */
     }
     
     input {
@@ -240,21 +243,27 @@ body{
         padding: 10px;
         border: 1px solid #ccc;
         border-radius: 3px;
+        box-sizing: border-box; /* Ajustar el tamaño del input incluyendo el padding y el borde */
+        color: #333; /* Color del texto más oscuro */
     }
     
     button {
         width: 100%;
         padding: 10px;
-        background-color: #4CAF50;
-        color: #ffffff;
+        background-color: #4CAF50; /* Color de fondo verde */
+        color: #fff; /* Color del texto blanco */
         border: none;
         border-radius: 3px;
         cursor: pointer;
+        transition: background-color 0.3s; /* Transición suave del color de fondo */
     }
     
     button:hover {
-        background-color: #45a049;
+        background-color: #45a049; /* Cambio de color de fondo al pasar el ratón */
     }
+    
+
+     /* Ajuste boton eliminar */
     .remove-image {
         width: 30px; /* Ajusta el ancho según tus necesidades */
         height: 30px; /* Ajusta la altura según tus necesidades */
