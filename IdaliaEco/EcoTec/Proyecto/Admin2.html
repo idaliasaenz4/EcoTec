@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ECOTecNM Delicias</title>
+    <link rel="stylesheet" href="css/admin2.css">
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="profile-icon">
+                <img src="imagenes/Adimn.jpg" alt="Administrador">
+            </div>
+            <h1>ECOTecNM Delicias</h1>
+        </div>
+    </header>
+    <main>
+        <div class="report-container">
+            <h2><input type="text" value="Título del Problema"></h2>
+            <p><textarea>Descripción del problema.</textarea></p>
+
+            <div class="verification-container">
+                <h3>Verificación para envío a administración</h3>
+                <div class="checkbox-group">
+                    <label>
+                        <input type="checkbox" checked readonly> Reporte verificado
+                    </label>
+                    <label>
+                        <input type="checkbox" readonly> Adjuntar imágenes
+                    </label>
+                    <label>
+                        <input type="checkbox" checked readonly> Prioridad alta
+                    </label>
+                    <label>
+                        <input type="checkbox" readonly> Prioridad media
+                    </label>
+                </div>
+            </div>
+            <div class="comment-container">
+                <h3>Comentario del Administrador al problema publicado</h3>
+                <textarea></textarea>
+                <div class="image-upload-container">
+                    <input type="file" id="image-upload" accept="image/*">
+                    <button onclick="uploadImage()">Subir Imagen</button>
+                    <div id="image-preview"></div>
+                </div>
+            </div>
+            <div class="button-container">
+                <button onclick="enviarReporte()">Enviar Reporte</button>
+                <button onclick="eliminarReporte()">Eliminar Reporte</button>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <button>Cerrar sesión</button>
+    </footer>
+    <script>
+        function uploadImage() {
+            const fileInput = document.getElementById('image-upload');
+            const preview = document.getElementById('image-preview');
+            
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            
+            reader.addEventListener('load', function () {
+                const image = new Image();
+                image.src = reader.result;
+                preview.innerHTML = '';
+                preview.appendChild(image);
+            }, false);
+            
+            if (file) {
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function enviarReporte() {
+            alert("Reporte enviado");
+        }
+
+        function eliminarReporte() {
+            alert("Reporte eliminado");
+        }
+    </script>
+</body>
+</html>

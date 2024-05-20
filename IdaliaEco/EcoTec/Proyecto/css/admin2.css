@@ -1,0 +1,120 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+        background-color: #f0f0f0; /* Color de fondo */
+        font-family: Arial, sans-serif;
+    
+}
+
+header {
+    background-color: #0066cc;
+    color: white;
+    padding: 10px;
+}
+
+.header-container {
+    display: auto;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.profile-icon img {
+    width: 70px; /* Reducir el ancho de la imagen */
+    height: 70px; /* Reducir la altura de la imagen */
+    border-radius: 50%;
+    background-color: #cccccc;
+}
+
+main {
+    padding: 20px;
+}
+
+.report-container {
+  
+  
+    background-color: white; /* Color de fondo del contenedor */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+.evidence-container img {
+    max-width: 100%;
+    height: auto;
+}
+
+.verification-container {
+    margin-top: 20px;
+}
+
+.checkbox-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.checkbox-group label {
+    margin-bottom: 10px;
+}
+
+.comment-container {
+    margin-top: 20px;
+}
+
+.comment-container textarea {
+    width: 100%;
+    height: 100px;
+    resize: vertical;
+}
+
+.image-container img {
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+}
+
+.button-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.button-container button {
+    margin-left: 10px;
+    padding: 10px 20px;
+    background-color: #0066cc;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+footer {
+    background-color: #0066cc;
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+footer button {
+    background-color: #00cc66;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+}
+.report-container textarea {
+    width: 100%;
+    height: 200px; /* Altura del textarea */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    background-color: #f0f0f0; /* Color de fondo del textarea */
+}

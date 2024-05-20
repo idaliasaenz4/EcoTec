@@ -1,0 +1,95 @@
+header {
+    background-color: #0066cc; /* Azul oscuro */
+    color: white;
+    padding: 15px 20px;
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.profile-icon {
+    margin-right: 10px; /* Ajusta el margen entre la imagen y el texto */
+}
+
+.title-container {
+    text-align: right; 
+    
+
+}
+
+.title-container h1 {
+    margin: 0; /* Elimina el margen predeterminado del h1 */
+}
+
+.profile-icon img {
+    width: 70px; /* Reducir el ancho de la imagen */
+    height: 70px; /* Reducir la altura de la imagen */
+    border-radius: 50%;
+    background-color: #cccccc;
+}
+
+
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+.card-container {
+    float: left; /* Opcionalmente, puedes usar display: inline-block; */
+    width: 20%; /* Ajusta el ancho de cada tarjeta según tu preferencia */
+    margin-right: 5%; /* Espacio entre las tarjetas */
+    margin-bottom: 20px; /* Espacio entre las filas de tarjetas */
+}
+
+
+.card {
+    background-color: #e0e0e0; /* Color de fondo gris claro */
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el contenido verticalmente */
+    align-items: center; /* Centra el contenido horizontalmente */
+    height: 150px; /* Ajusta la altura de las tarjetas */
+}
+
+.card p {
+    font-size: 14px;
+    color: #333;
+    margin: 5px 0;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #007bff;
+    padding: 10px 0;
+    text-align: center;
+}
+
+footer button {
+    background-color: #0a60bc;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+
+#filtro {
+    text-align: left;
+}
+.card img {
+    width: 50px; /* Ajusta el tamaño del ícono */
+    height: 50px;
+    margin-bottom: 10px; /* Espacio entre el ícono y el texto */
+}
+.card h3 {
+    font-size: 16px;
+    color: black; /* Asegúrate de que el texto sea legible */
+    margin: 5px 0; /* Espaciado adecuado */
+}
