@@ -35,5 +35,16 @@
             <button type="submit">Ingresar</button>
         </form>
     </div>
+    <script src="scripts/loginTest.js"></script>
+    <script src="tests/inicioFULL.spec.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            console.log('El DOM ha sido completamente cargado');
+            // Carga el script de pruebas aquí
+            const script = document.createElement('script');
+            script.src = 'tests/inicioFULL.spec.js';
+            document.body.appendChild(script);
+        });
+    </script>
 </body>
 </html>
