@@ -60,58 +60,10 @@ app.use((req, res, next) => {
     next();
   });
 
-//Configuracion para el socket
-// Variable para llevar el conteo
-let contadorConexiones = 0;
-// Objeto de mensaje inicial
-const initialMessage = {
-    id: 1,
-    texto: "¡Hola a Todo Mundo! Soy un mensaje del servidor.",
-    autor: "Servidor"
-};
-// Inicializar el arreglo de mensajes con el mensaje inicial
-const messages = [initialMessage];
-
-// Emitir un evento 'message' de vuelta al cliente cuando se conecte
-io.on('connection', function (socket) {
-    contadorConexiones++; // Incrementar el contador
-    console.log('Alguien se ha conectado con socket');
-    console.log('Número de conexiones: ' + contadorConexiones); // Imprimir el contador
-    
-    // Emitir el mensaje inicial al cliente cuando se conecta
-    socket.emit("message", messages);
-
-   // Manejar el evento 'new-message' enviado por el cliente
-    socket.on("new-message", function(data) {
-    // Modificar la estructura del mensaje para incluir el nombre de usuario
-    const newMessage = {
-        autor: data.autor,
-        texto: data.texto
-    };
-    
-    // Agregar el nuevo mensaje al arreglo de mensajes
-    messages.push(newMessage);
-    
-    // Emitir el arreglo de mensajes actualizado de vuelta a todos los clientes
-    io.emit('respuesta', messages);
-   
-});
-
-// Manejar el evento de inicio de sesión
-socket.on('login', function(credentials) {
-    // Verificar las credenciales y enviar respuesta al cliente
-    if (credentials.username === validUsername && credentials.password === validPassword) {
-        socket.emit('login-response', { success: true, message: 'Login successful' });
-    } else {
-        socket.emit('login-response', { success: false, message: 'Invalid username or password' });
-    }
-});
-});
-
 
 // Iniciar el servidor HTTP
 server.listen(PORT, () => {
-    console.log(`Server running at https://manejador.azurewebsites.net:${PORT}/`);
+    console.log(`Server running at http:/localhost:${PORT}/`);
 });
 
 module.exports = app; // Exportar app para uso en otros archivos
