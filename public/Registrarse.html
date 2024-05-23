@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ESTETIK</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Estilos específicos para la página de inicio de sesión */
+        .inicioSesion {
+            /* Aquí estableces la imagen de fondo */
+            background-image: url('https://media-exp1.licdn.com/dms/image/C561BAQFF35OICFchGg/company-background_10000/0/1623201803265?e=2147483647&v=beta&t=5OOiQN6FhTZc6hJiwidyVbfa-3cAUBRWuQm5FpSX8vo');
+            background-size: cover;
+            /* Cubrir todo el contenedor */
+            background-position: center center;
+            /* Centrar la imagen */
+            background-repeat: no-repeat;
+            /* Evitar la repetición de la imagen */
+            height: 100vh;
+            /* Altura del contenedor igual al 100% de la altura de la ventana */
+            display: flex;
+            /* Utilizar el modelo de caja flex para centrar contenido verticalmente */
+            justify-content: center;
+            /* Centrar horizontalmente el contenido */
+            align-items: center;
+            /* Centrar verticalmente el contenido */
+        }
+    </style>
+</head>
+
+<body class="inicioSesion">
+    <div class="container">
+        <h1>Registrate</h1>
+        <form id="registerForm">
+            <div class="form-group">
+                <label for="registerUsername">Nombre:</label>
+                <input type="text" id="registerUsername" name="nombre" required>
+                <div id="usernameError" class="error-message"></div>
+            </div>
+            <div class="form-group">
+                <label for="registerPassword">Contraseña:</label>
+                <input type="password" id="registerPassword" name="contraseña" required>
+                <div id="passwordError" class="error-message"></div>
+            </div>
+            <button type="submit">Registrarse</button>
+        </form>
+
+    </div>
+    <!-- SweetAlert2 -->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Axios -->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+<!-- Script para generar un token automáticamente al cargar la página -->
+<script>
+    // Definir una variable global para almacenar el token
+    let accessToken;
+  
+    // Ejecutar la generación del token automáticamente cuando la página se carga
+    document.addEventListener('DOMContentLoaded', function() {
+      axios.post('/api/token', { id: '58' }) // Envía una solicitud POST para generar el token
+        .then(response => {
+          accessToken = response.data.token; // Almacena el token en la variable global
+        })
+        .catch(error => {
+          console.error('Error al generar el token:', error);
+        });
+    });
+</script>
+
+<!-- Script para enviar datos de usuario -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const registerForm = document.getElementById('registerForm');
+
+        registerForm.addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const nombre = document.getElementById('registerUsername').value;
+            const contrasena = document.getElementById('registerPassword').value;
+
+            const usernameError = document.getElementById('usernameError');
+            const passwordError = document.getElementById('passwordError');
+
+            // Validación de longitud mínima del nombre
+            if (nombre.length < 6) {
+                usernameError.textContent = 'El nombre debe tener al menos 6 caracteres';
+                return;
+            } else {
+                usernameError.textContent = '';
+            }
+
+            // Validación de caracteres especiales en el nombre
+            const specialCharsRegex = /[&'";`#%;<>\\|$\^~?!@()\[\]{}_\-+=,.:]/;
+            if (specialCharsRegex.test(nombre)) {
+                usernameError.textContent = 'No puedes ingresar caracteres especiales en el nombre';
+                return;
+            } else {
+                usernameError.textContent = '';
+            }
+
+            // Validación de longitud mínima, presencia de al menos un número y una mayúscula en la contraseña
+            if (contrasena.length < 8 || !/\d/.test(contrasena) || !/[A-Z]/.test(contrasena)) {
+                passwordError.textContent = 'La contraseña debe tener al menos 8 caracteres, contener al menos un número y una letra mayúscula';
+                return;
+            } else {
+                passwordError.textContent = '';
+            }
+
+            // Validación de caracteres especiales en la contraseña
+            if (specialCharsRegex.test(contrasena)) {
+                passwordError.textContent = 'No puedes ingresar caracteres especiales en la contraseña';
+                return;
+            } else {
+                passwordError.textContent = '';
+            }
+
+            const userData = { nombre, contrasena };
+
+            // Verificar si hay un token almacenado localmente
+            if (!accessToken) {
+                alert('No se encontró un token de acceso válido. Por favor, configura el token correctamente.');
+                return;
+            }
+
+            console.log('Token:', accessToken); // Agregar esta línea para depuración
+
+            axios.post('/api/users', userData, {
+    headers: {
+        'Authorization': accessToken
+    }
+})
+            .then(function (response) {
+                console.log('User added successfully:', response.data);
+                alert('El usuario ha sido agregado exitosamente.');
+                // Recargar la página después de la alerta de éxito
+                location.reload();
+            })
+            .catch(function (error) {
+                console.error('Error adding user:', error);
+                alert('Hubo un problema al agregar el usuario. Por favor, inténtalo de nuevo.');
+            });
+        });
+    });
+</script>
+</body>
+
+</html>

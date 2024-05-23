@@ -1,0 +1,289 @@
+/* Estilos generales */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: blue; /* Cambia esto al color que desees para el fondo del encabezado */
+    padding: 15px 20px; /* Incrementé el relleno para dar espacio alrededor de los elementos */
+    position: fixed;
+    width: 100%;
+    top: 0;
+    z-index: 1000; /* Asegura que la barra de navegación esté encima del resto del contenido */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    color: #fff; /* Color del texto en los enlaces */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+nav ul li a:hover {
+    color: #ff9900; /* Cambia esto al color de resaltado deseado al pasar el mouse sobre los enlaces */
+}
+
+.logo {
+    color: #fff; /* Color del texto del logo */
+    font-size: 24px; /* Tamaño del texto del logo */
+    font-weight: bold;
+    padding-right: 40px;
+}
+
+/* Estilos específicos para dispositivos móviles */
+@media only screen and (max-width: 600px) {
+    nav ul li {
+        display: block;
+        margin-bottom: 10px;
+    }
+}
+
+
+
+/* Estilos para las tarjetas */
+.card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    padding: 20px;
+}
+
+.card {
+    background-color:whitesmoke;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    text-align: center;
+}
+
+.card img {
+    max-width: 100%;
+    height: auto;
+}
+
+.card h3 {
+    margin-top: 10px;
+}
+
+.card p {
+    margin-top: 5px;
+    color: #666;
+}
+body{
+    height: 100hv;
+    background-color:white;
+    background-size: cover;
+    background-position: center;
+}
+/* Estilos para la sección de reportes */
+.report-section {
+    max-width: 800px;
+    margin: 40px auto;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.problem-section {
+    margin-bottom: 30px;
+
+}
+
+.problem-section input,
+.problem-section textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    resize: vertical;
+    font-family: inherit;
+}
+
+.problem-section textarea {
+    height: 150px;
+}
+
+.image-upload {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 10px;
+}
+
+.image-upload button {
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.report-requirements {
+    margin-top: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: white;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+.upload-evidence,
+.send-report {
+    background-color: #4CAF50;
+    color: #ffffff;
+    border: none;
+    padding: 12px 24px;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.send-report {
+    margin-left: 10px;
+}
+.tsuru {
+    border: none; /* Quita el borde predeterminado */
+    height: 2px; /* Grosor de la línea */
+    background-color: #007bff; /* Color de la línea */
+    margin: 20px 15px; /* Margen superior e inferior */
+    /* Otras propiedades opcionales para decorar la línea */
+    /* Por ejemplo, puedes añadir un efecto de sombra o degradado */
+    /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); */
+     background: linear-gradient(to right, #007bff, #00bfff);
+    }
+    .image-upload button {
+        max-width: 300px; /* Establece el ancho máximo de los botones */
+        max-height: 300px; /* Establece la altura máxima de los botones */
+
+    }
+    .image-upload button img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+    }
+
+    .container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 80%; /* Ajusta el ancho del contenedor según sea necesario */
+        max-width: 400px; /* Establece un ancho máximo para evitar que el contenedor se vuelva demasiado grande */
+        background-color: rgba(30, 30, 30, 0.8); /* Color de fondo oscuro con transparencia */
+        padding: 20px;
+        border-radius: 10px; /* Bordes redondeados */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    }
+    
+    h1 {
+        text-align: center;
+        margin-bottom: 30px;
+        color: #fff; /* Color del texto blanco */
+    }
+    
+    form {
+        width: 100%; /* Hacer que el formulario ocupe todo el ancho del contenedor */
+        max-width: 300px; /* Establecer un ancho máximo para el formulario */
+        margin: 0 auto; /* Centrar horizontalmente el formulario dentro del contenedor */
+    }
+    
+    .form-group {
+        margin-bottom: 20px;
+    }
+    
+    label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #ddd; /* Color del texto más claro */
+    }
+    
+    input {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        box-sizing: border-box; /* Ajustar el tamaño del input incluyendo el padding y el borde */
+        color: #333; /* Color del texto más oscuro */
+    }
+    
+    button {
+        width: 100%;
+        padding: 10px;
+        background-color: #4CAF50; /* Color de fondo verde */
+        color: #fff; /* Color del texto blanco */
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s; /* Transición suave del color de fondo */
+    }
+    
+    button:hover {
+        background-color: #45a049; /* Cambio de color de fondo al pasar el ratón */
+    }
+    .button-group {
+        display: flex;
+        justify-content: space-between;
+    }
+    .button-group button {
+        flex: 1;
+        margin: 5px;
+    }
+
+     /* Ajuste boton eliminar */
+    .remove-image {
+        width: 30px; /* Ajusta el ancho según tus necesidades */
+        height: 30px; /* Ajusta la altura según tus necesidades */
+        border-radius: 0; /* Borde cuadrado */
+        border: 1px solid black; /* Borde opcional */
+        background-color: transparent; /* Fondo transparente */
+        color: black; /* Color del texto */
+        font-size: 16px; /* Tamaño de la fuente */
+        text-align: center; /* Alineación del texto */
+        cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+        outline: none; /* Quita el contorno al hacer clic */
+      }
+      
+      .remove-image:hover {
+        background-color: #ccc; /* Cambia el color de fondo al pasar sobre el botón */
+      }
