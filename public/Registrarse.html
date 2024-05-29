@@ -43,7 +43,10 @@
                 <input type="password" id="registerPassword" name="contraseña" required>
                 <div id="passwordError" class="error-message"></div>
             </div>
-            <button type="submit">Registrarse</button>
+            <div class="button-group">
+                <button type="submit">Registrar</button>
+                <button  type="button" id="registerButton">Logearse</button>
+            </div>
         </form>
 
     </div>
@@ -52,6 +55,7 @@
     <!-- Axios -->
     <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 
+
 <!-- Script para generar un token automáticamente al cargar la página -->
 <script>
     // Definir una variable global para almacenar el token
@@ -59,15 +63,18 @@
   
     // Ejecutar la generación del token automáticamente cuando la página se carga
     document.addEventListener('DOMContentLoaded', function() {
-      axios.post('/api/token', { id: '58' }) // Envía una solicitud POST para generar el token
+      axios.post('/api/token', { id: '12' }) // Envía una solicitud POST para generar el token
         .then(response => {
           accessToken = response.data.token; // Almacena el token en la variable global
+      
         })
         .catch(error => {
           console.error('Error al generar el token:', error);
         });
     });
-</script>
+  </script>
+
+
 
 <!-- Script para enviar datos de usuario -->
 <script>
@@ -78,7 +85,7 @@
             event.preventDefault();
 
             const nombre = document.getElementById('registerUsername').value;
-            const contrasena = document.getElementById('registerPassword').value;
+            const contrasea = document.getElementById('registerPassword').value;
 
             const usernameError = document.getElementById('usernameError');
             const passwordError = document.getElementById('passwordError');
@@ -101,7 +108,7 @@
             }
 
             // Validación de longitud mínima, presencia de al menos un número y una mayúscula en la contraseña
-            if (contrasena.length < 8 || !/\d/.test(contrasena) || !/[A-Z]/.test(contrasena)) {
+            if (contrasea.length < 8 || !/\d/.test(contrasea) || !/[A-Z]/.test(contrasea)) {
                 passwordError.textContent = 'La contraseña debe tener al menos 8 caracteres, contener al menos un número y una letra mayúscula';
                 return;
             } else {
@@ -109,14 +116,14 @@
             }
 
             // Validación de caracteres especiales en la contraseña
-            if (specialCharsRegex.test(contrasena)) {
+            if (specialCharsRegex.test(contrasea)) {
                 passwordError.textContent = 'No puedes ingresar caracteres especiales en la contraseña';
                 return;
             } else {
                 passwordError.textContent = '';
             }
 
-            const userData = { nombre, contrasena };
+            const userData = { nombre, contrasea };
 
             // Verificar si hay un token almacenado localmente
             if (!accessToken) {
@@ -143,6 +150,13 @@
             });
         });
     });
+</script>
+
+<!-- Script para el boton regresar -->
+<script>
+       document.getElementById('registerButton').addEventListener('click', function() {
+            window.location.href = 'inicioFULL.html'; // Redirige a la página de registro
+        });
 </script>
 </body>
 

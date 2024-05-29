@@ -4,9 +4,12 @@ const crypto = require('crypto');
 const pool = require('../data/config');
 const jwt = require('jsonwebtoken');
 const secretKey = 'Lainod'; // Clave secreta para firmar los tokens
+const multer = require('multer');
+const storage = multer.memoryStorage();
+const upload = multer({ storage });
 const { generarToken, verificarToken } = require('./auth'); // Importar funciones de autenticación
 
-const router = (app) => {
+const app = (app) => {
     // Ruta de la aplicación
     // Mostrar mensaje de bienvenida en la ruta raíz
     app.get('/api/', (request, response) => {
@@ -267,110 +270,154 @@ app.post('/api/token', (req, res) => {
     });
 
     //---------------------------------------------------------------------------------------------------
-
-    // Agregar un nuevo usuario Token con tres contraseñas haseadas
-    // Funciones para generar hashes MD5, SHA256 y SHA1
-    function generateMD5Hash(password) {
-        return crypto.createHash('md5').update(password).digest('hex');
+    
+    // Ruta para obtener todos los reportes
+    app.get('/api/reportes', (req, res) => {
+    const token = req.headers['authorization'];
+    if (!token) {
+        return res.status(401).json({ error: 'Token no proporcionado' });
     }
 
-    function generateSHA256Hash(password) {
-        return crypto.createHash('sha256').update(password).digest('hex');
+    const decodedToken = verificarToken(token);
+    if (!decodedToken) {
+        return res.status(401).json({ error: 'Token inválido' });
     }
 
-    function generateSHA1Hash(password) {
-        return crypto.createHash('sha1').update(password).digest('hex');
-    }
-    // Agregar un nuevo usuario con contraseña hasheada en diferentes formatos
-    app.post('/api/users/hashs', (request, response) => {
-        const token = request.headers['authorization'];
-        if (!token) {const request = require('supertest');
-        const app = require('./app');
-        
-        describe('Pruebas de la API', () => {
-          // Prueba para la ruta POST /token
-          it('debería generar un token JWT', async () => {
-            const response = await request(app)
-              .post('/token')
-              .send({ id: 1 }); // Reemplaza con los datos del usuario autenticado
-            expect(response.statusCode).toBe(200);
-            expect(response.text).toContain('Token generado:');
-          });
-        
-          // Prueba para la ruta GET /users
-          it('debería devolver todos los usuarios', async () => {
-            const response = await request(app)
-              .get('/users')
-              .set('Authorization', 'Bearer tuTokenJWT'); // Reemplaza 'tuTokenJWT' con un token JWT válido
-            expect(response.statusCode).toBe(200);
-            expect(response.body).toBeDefined(); // Verificar que se devuelvan usuarios
-          });
-        
-          // Prueba para la ruta POST /users
-          it('debería agregar un nuevo usuario', async () => {
-            const newUser = { nombre: 'NuevoUsuario', contrasea: 'nuevaContraseña' }; // Reemplaza con los datos del nuevo usuario
-            const response = await request(app)
-              .post('/users')
-              .set('Authorization', 'Bearer tuTokenJWT') // Reemplaza 'tuTokenJWT' con un token JWT válido
-              .send(newUser);
-            expect(response.statusCode).toBe(201);
-            expect(response.text).toContain('Usuario agregado con ID:');
-          });
-        
-          // Prueba para la ruta PUT /users/:id
-          it('debería actualizar un usuario por su ID', async () => {
-            const updatedUser = { nombre: 'UsuarioActualizado', contrasea: 'nuevaContraseña' }; // Reemplaza con los datos actualizados del usuario
-            const response = await request(app)
-              .put('/users/1') // Reemplaza '1' con el ID del usuario que quieres actualizar
-              .set('Authorization', 'Bearer tuTokenJWT') // Reemplaza 'tuTokenJWT' con un token JWT válido
-              .send(updatedUser);
-            expect(response.statusCode).toBe(200);
-            expect(response.text).toContain('Usuario actualizado correctamente');
-          });
-        
-          // Prueba para la ruta POST /login
-          it('debería iniciar sesión y devolver un token JWT', async () => {
-            const credentials = { username: 'usuario', password: 'contraseña' }; // Reemplaza con las credenciales válidas
-            const response = await request(app)
-              .post('/login')
-              .send(credentials);
-            expect(response.statusCode).toBe(200);
-            expect(response.body).toHaveProperty('token');
-          });
-        
-          // Puedes agregar más pruebas según sea necesario para otras rutas y funcionalidades
-        });
-        
-            return response.status(401).json({ error: 'Token no proporcionado' });
+    pool.query('SELECT * FROM Reportes', (error, results) => {
+        if (error) {
+            console.error('Error al obtener reportes:', error);
+            return res.status(500).json({ error: 'Error interno del servidor' });
         }
-
-        const decodedToken = verificarToken(token);
-        if (!decodedToken) {
-            return response.status(401).json({ error: 'Token inválido' });
-        }
-
-        const userData = request.body;
-        const plaintextPassword = userData.contrasea;
-
-        bcrypt.hash(plaintextPassword, 10, (err, bcryptHash) => {
-            if (err) {
-                console.error('Error al hashear la contraseña:', err);
-                return response.status(500).json({ error: 'Error interno del servidor' });
-            }
-
-            pool.query('INSERT INTO users (nombre, contrasea, md5_hash, sha256_hash, sha1_hash) VALUES (?, ?, ?, ?, ?)',
-                [userData.nombre, bcryptHash, generateMD5Hash(plaintextPassword), generateSHA256Hash(plaintextPassword), generateSHA1Hash(plaintextPassword)],
-                (error, result) => {
-                    if (error) {
-                        console.error('Error al agregar un nuevo usuario:', error);
-                        return response.status(500).json({ error: 'Error interno del servidor' });
-                    }
-                    console.log('Usuario agregado con éxito');
-                    response.status(201).send(`Usuario agregado con ID: ${result.insertId}`);
-                });
-        });
+        res.status(200).json(results);
     });
+});
+
+    // Ruta para obtener un solo reporte por ID
+    app.get('/api/reportes/:id', (req, res) => {
+    const token = req.headers['authorization'];
+    if (!token) {
+        return res.status(401).json({ error: 'Token no proporcionado' });
+    }
+
+    const decodedToken = verificarToken(token);
+    if (!decodedToken) {
+        return res.status(401).json({ error: 'Token inválido' });
+    }
+
+    const id = req.params.id;
+    pool.query('SELECT * FROM Reportes WHERE id = ?', [id], (error, results) => {
+        if (error) {
+            console.error('Error al obtener el reporte:', error);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        if (results.length === 0) {
+            return res.status(404).json({ error: 'Reporte no encontrado' });
+        }
+        res.status(200).json(results[0]);
+    });
+});
+
+    // Ruta para crear un nuevo reporte
+    app.post('/api/reportes', (req, res) => {
+    const token = req.headers['authorization'];
+    if (!token) {
+        return res.status(401).json({ error: 'Token no proporcionado' });
+    }
+
+    const decodedToken = verificarToken(token);
+    if (!decodedToken) {
+        return res.status(401).json({ error: 'Token inválido' });
+    }
+
+    const { titulo, descripcion, numero_control, correo, tipo_reporte } = req.body;
+    const nuevoReporte = { titulo, descripcion, numero_control, correo, tipo_reporte };
+
+    pool.query('INSERT INTO Reportes SET ?', nuevoReporte, (error, result) => {
+        if (error) {
+            console.error('Error al crear el reporte:', error);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        res.status(201).json({ message: 'Reporte creado con éxito', id: result.insertId });
+    });
+});
+
+    // Ruta para actualizar un reporte por ID
+    app.put('/api/reportes/:id', (req, res) => {
+    const token = req.headers['authorization'];
+    if (!token) {
+        return res.status(401).json({ error: 'Token no proporcionado' });
+    }
+
+    const decodedToken = verificarToken(token);
+    if (!decodedToken) {
+        return res.status(401).json({ error: 'Token inválido' });
+    }
+
+    const id = req.params.id;
+    const { titulo, descripcion, numero_control, correo, tipo_reporte } = req.body;
+    const reporteActualizado = { titulo, descripcion, numero_control, correo, tipo_reporte };
+
+    pool.query('UPDATE Reportes SET ? WHERE id = ?', [reporteActualizado, id], (error, result) => {
+        if (error) {
+            console.error('Error al actualizar el reporte:', error);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        res.status(200).json({ message: 'Reporte actualizado con éxito' });
+    });
+});
+
+    // Ruta para eliminar un reporte por ID
+    app.delete('/api/reportes/:id', (req, res) => {
+    const token = req.headers['authorization'];
+    if (!token) {
+        return res.status(401).json({ error: 'Token no proporcionado' });
+    }
+
+    const decodedToken = verificarToken(token);
+    if (!decodedToken) {
+        return res.status(401).json({ error: 'Token inválido' });
+    }
+
+    const id = req.params.id;
+
+    pool.query('DELETE FROM Reportes WHERE id = ?', [id], (error, result) => {
+        if (error) {
+            console.error('Error al eliminar el reporte:', error);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        res.status(200).json({ message: 'Reporte eliminado con éxito' });
+    });
+});
+
+    // Ruta para Subir evidencia
+    app.post('/api/reportes/:id/evidencia', upload.single('evidencia_imagen'), (req, res) => {
+    const token = req.headers['authorization'];
+    if (!token) {
+        return res.status(401).json({ error: 'Token no proporcionado' });
+    }
+
+    const decodedToken = verificarToken(token);
+    if (!decodedToken) {
+        return res.status(401).json({ error: 'Token inválido' });
+    }
+
+    const id = req.params.id;
+    const evidenciaImagen = req.file ? req.file.buffer : null;
+
+    if (!evidenciaImagen) {
+        return res.status(400).json({ error: 'No se ha proporcionado una imagen' });
+    }
+
+    pool.query('UPDATE Reportes SET evidencia_imagen = ? WHERE id = ?', [evidenciaImagen, id], (error, result) => {
+        if (error) {
+            console.error('Error al subir la evidencia:', error);
+            return res.status(500).json({ error: 'Error interno del servidor' });
+        }
+        res.status(200).json({ message: 'Evidencia subida con éxito' });
+    });
+});
+
 };
 
-// Exportar el Router
-module.exports = router;
+// Exportar el app
+module.exports = app;
