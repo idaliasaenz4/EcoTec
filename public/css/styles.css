@@ -296,3 +296,22 @@ body{
             border-radius: 3px;
             margin-top: 5px;
         }
+
+
+        .image-upload {
+            display: inline-block;
+            margin: 10px;
+        }
+        .image-upload input[type="file"] {
+            display: none;
+        }
+        .image-upload img {
+            max-width: 100px;
+            max-height: 100px;
+            margin: 5px;
+            display: inline-block;
+        }
+        .images-container {
+            display: flex;
+            flex-wrap: wrap;
+        }

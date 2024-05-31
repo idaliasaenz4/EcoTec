@@ -16,7 +16,7 @@ const app = (app) => {
         response.json({ message: '¡Bienvenido a Node.js Express REST API!' });
     });
 // Ruta para generar el token
-app.post('/api/token', (req, res) => {
+    app.post('/api/token', (req, res) => {
     try {
       // Suponiendo que req.body contiene los datos del usuario autenticado,
       // y que req.body.id es el ID único del usuario
@@ -268,21 +268,10 @@ app.post('/api/token', (req, res) => {
             });
         });
     });
-
     //---------------------------------------------------------------------------------------------------
     
     // Ruta para obtener todos los reportes
     app.get('/api/reportes', (req, res) => {
-    const token = req.headers['authorization'];
-    if (!token) {
-        return res.status(401).json({ error: 'Token no proporcionado' });
-    }
-
-    const decodedToken = verificarToken(token);
-    if (!decodedToken) {
-        return res.status(401).json({ error: 'Token inválido' });
-    }
-
     pool.query('SELECT * FROM Reportes', (error, results) => {
         if (error) {
             console.error('Error al obtener reportes:', error);
@@ -290,7 +279,7 @@ app.post('/api/token', (req, res) => {
         }
         res.status(200).json(results);
     });
-});
+    });
 
     // Ruta para obtener un solo reporte por ID
     app.get('/api/reportes/:id', (req, res) => {
@@ -315,20 +304,10 @@ app.post('/api/token', (req, res) => {
         }
         res.status(200).json(results[0]);
     });
-});
+    });
 
     // Ruta para crear un nuevo reporte
     app.post('/api/reportes', (req, res) => {
-    const token = req.headers['authorization'];
-    if (!token) {
-        return res.status(401).json({ error: 'Token no proporcionado' });
-    }
-
-    const decodedToken = verificarToken(token);
-    if (!decodedToken) {
-        return res.status(401).json({ error: 'Token inválido' });
-    }
-
     const { titulo, descripcion, numero_control, correo, tipo_reporte } = req.body;
     const nuevoReporte = { titulo, descripcion, numero_control, correo, tipo_reporte };
 
@@ -339,7 +318,26 @@ app.post('/api/token', (req, res) => {
         }
         res.status(201).json({ message: 'Reporte creado con éxito', id: result.insertId });
     });
-});
+    });
+
+    
+    // Ruta para Subir evidencia
+    app.post('/api/reportes/:id/evidencia', upload.single('evidencia_imagen'), (req, res) => {
+        const id = req.params.id;
+        const evidenciaImagen = req.file ? req.file.buffer : null;
+    
+        if (!evidenciaImagen) {
+            return res.status(400).json({ error: 'No se ha proporcionado una imagen' });
+        }
+    
+        pool.query('UPDATE Reportes SET evidencia_imagen = ? WHERE id = ?', [evidenciaImagen, id], (error, result) => {
+            if (error) {
+                console.error('Error al subir la evidencia:', error);
+                return res.status(500).json({ error: 'Error interno del servidor' });
+            }
+            res.status(200).json({ message: 'Evidencia subida con éxito' });
+        });
+        });
 
     // Ruta para actualizar un reporte por ID
     app.put('/api/reportes/:id', (req, res) => {
@@ -364,7 +362,7 @@ app.post('/api/token', (req, res) => {
         }
         res.status(200).json({ message: 'Reporte actualizado con éxito' });
     });
-});
+    });
 
     // Ruta para eliminar un reporte por ID
     app.delete('/api/reportes/:id', (req, res) => {
@@ -387,35 +385,7 @@ app.post('/api/token', (req, res) => {
         }
         res.status(200).json({ message: 'Reporte eliminado con éxito' });
     });
-});
-
-    // Ruta para Subir evidencia
-    app.post('/api/reportes/:id/evidencia', upload.single('evidencia_imagen'), (req, res) => {
-    const token = req.headers['authorization'];
-    if (!token) {
-        return res.status(401).json({ error: 'Token no proporcionado' });
-    }
-
-    const decodedToken = verificarToken(token);
-    if (!decodedToken) {
-        return res.status(401).json({ error: 'Token inválido' });
-    }
-
-    const id = req.params.id;
-    const evidenciaImagen = req.file ? req.file.buffer : null;
-
-    if (!evidenciaImagen) {
-        return res.status(400).json({ error: 'No se ha proporcionado una imagen' });
-    }
-
-    pool.query('UPDATE Reportes SET evidencia_imagen = ? WHERE id = ?', [evidenciaImagen, id], (error, result) => {
-        if (error) {
-            console.error('Error al subir la evidencia:', error);
-            return res.status(500).json({ error: 'Error interno del servidor' });
-        }
-        res.status(200).json({ message: 'Evidencia subida con éxito' });
     });
-});
 
 };
 

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Reporte</title>
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html">Inicio</a></li>
+            </ul>
+            <div class="logo">EcoTecNM</div>
+        </nav>
+    </header>
+
+    <div class="report-section">
+        <div class="report-requirements">
+            <h2>Subir evidencia Opcional</h2>
+            <div class="form-group">
+                <label>No. de Reporte para subir evidencia</label>
+                <input id="numero_Reporte" type="text" placeholder="Número de Reporte">
+            </div>
+            <center> <!-- Sección para cargar imagen -->
+                <div class="image-upload">
+                    <input type="file" id="fileInput" accept="image/*" multiple>
+                    <button class="upload-button" onclick="handleUpload()">Cargar Imágenes</button>
+                    <div class="images-container"></div>
+                </div>
+            </center>
+        </div>
+    </div>
+
+    <button id="evidencia" class="send-report" onclick="enviarReporte()">Enviar evidencia</button>
+    </div>
+    </div>
+
+    <!-- Este script sirve para cargar imagen-->
+    <script>
+        // Script para enviar la imagen al servidor al hacer clic en el botón "Enviar Reporte"
+        function enviarReporte() {
+            const numeroReporteInput = document.getElementById('numero_Reporte');
+            const fileInput = document.getElementById('fileInput');
+            
+            // Obtener el número de reporte y la imagen cargada
+            const numeroReporte = numeroReporteInput.value;
+            const imagen = fileInput.files[0];
+
+            // Verificar que se haya seleccionado una imagen
+            if (!imagen) {
+                alert('Por favor, seleccione una imagen para subir.');
+                return;
+            }
+
+            // Crear un FormData para enviar el número de reporte y la imagen al servidor
+            const formData = new FormData();
+            formData.append('evidencia_imagen', imagen);
+
+            // Realizar la solicitud POST al servidor para subir la imagen
+            fetch(`/api/reportes/${numeroReporte}/evidencia`, {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+            if (response.ok) {
+                alert('Evidencia subida con éxito');
+                // Ejecutar la acción al subir la evidencia exitosamente
+                window.location.href = 'index.html'; 
+            } else {
+                    throw new Error('Error al subir la evidencia');
+                }
+            })
+            .catch(error => {
+                console.error('Error al subir la evidencia:', error);
+                alert('Hubo un error al subir la evidencia. Por favor, intenta de nuevo.');
+            });
+        }
+
+        // Script para cargar imagen
+        document.addEventListener('DOMContentLoaded', () => {
+            const fileInput = document.getElementById('fileInput');
+            const uploadButton = document.querySelector('.upload-button');
+            const imagesContainer = document.querySelector('.images-container');
+
+            uploadButton.addEventListener('click', () => {
+                fileInput.click();
+            });
+
+            fileInput.addEventListener('change', (event) => {
+                const files = Array.from(event.target.files);
+
+                files.forEach((file) => {
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = (e) => {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            imagesContainer.appendChild(img);
+                        };
+                        reader.readAsDataURL(file);
+                    }
+                });
+            });
+        });
+        
+    </script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+
+</html>

@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Crear Reporte</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
     <header>
         <nav>
@@ -20,42 +22,71 @@
     <div class="report-section">
         <h2>Crear Reporte</h2>
         <div class="problem-section">
-            <input type="text" placeholder="Ingresa el título de su problema">
+            <input id="titulo" type="text" placeholder="Ingresa el título de su problema">
             <hr class="tsuru">
-            <textarea placeholder="Describe el problema">En una pequeña comunidad, la disponibilidad de agua potable se ha convertido en un problema crítico. La única fuente de agua local, un manantial, ha experimentado una disminución drástica en su caudal debido a factores climáticos impredecibles y el aumento de la demanda de agua de la creciente población. Los residentes se enfrentan a interrupciones frecuentes en el suministro de agua y la calidad del agua ha disminuido, lo que plantea riesgos para la salud.</textarea>
-            <div class="image-upload">
-                <button>&#128247;</button>
-                <button class="remove-image">&times;</button>
-            </div>
-            <div class="image-upload">
-                <button>&#128247;</button>
-                <button class="remove-image">&times;</button>
-            </div>
+            <textarea id="descripcion" placeholder="Describe el problema" ></textarea>
         </div>
         <div class="report-requirements">
             <h3>Requisitos del Reporte</h3>
             <div class="form-group">
                 <label>No. de control</label>
-                <input type="text" placeholder="Número de Control">
+                <input id="numero_control" type="text" placeholder="Número de Control">
             </div>
             <div class="form-group">
                 <label>Correo Electrónico</label>
-                <input type="email" placeholder="Correo">
+                <input id="correo" type="email" placeholder="Correo">
             </div>
             <div class="form-group">
                 <label>Selecciona una Categoría</label>
-                <select>
-                    <option value="">Reporte</option>
-                    <option value="">Sugerencia</option>
-                    <option value="">Queja</option>
+                <select id="tipo_reporte">
+                    <option value="Reporte">Reporte</option>
+                    <option value="Sugerencia">Sugerencia</option>
+                    <option value="Queja">Queja</option>
                 </select>
             </div>
-            <button class="upload-evidence">Subir Evidencia</button>
-            <button class="send-report">Enviar Reporte</button>
+            <button id="evidencia" class="send-report" onclick="enviarReporte()">Subir evidencia del Reporte</button>
         </div>
     </div>
 
-    
+    <!-- Este script sirve para subir un reporte sin la imagen -->
+    <!-- Este script sirve para enviar un reporte-->
+    <script>
+        function enviarReporte() {
+            const titulo = document.getElementById('titulo').value;
+            const descripcion = document.getElementById('descripcion').value;
+            const numero_control = document.getElementById('numero_control').value;
+            const correo = document.getElementById('correo').value;
+            const tipo_reporte = document.getElementById('tipo_reporte').value;
+
+            // Validación de campos obligatorios
+            if (!titulo || !descripcion || !numero_control || !correo || !tipo_reporte) {
+                alert('Por favor completa todos los campos obligatorios.');
+                return;
+            }
+
+            axios.post('/api/reportes', {
+                titulo: titulo,
+                descripcion: descripcion,
+                numero_control: numero_control,
+                correo: correo,
+                tipo_reporte: tipo_reporte
+            })
+            .then(response => {
+                const reporteId = response.data.id;
+                alert('Reporte creado con éxito. Tu número de reporte es: ' + reporteId);
+                // Ejecutar la acción al crear el reporte exitosamente
+                window.location.href = 'CrearReporteEvidencia.html'; 
+            })
+                .catch(error => {
+                    console.error('Error al crear el reporte:', error);
+                    alert('Hubo un error al crear el reporte.');
+                });
+        }
+    </script>
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </body>
-<script src="scripts/subir.js"></script>
+
 </html>
