@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoTecNM Delicias</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
+
 <body>
     <header>
         <nav>
@@ -14,115 +16,64 @@
                 <li><a href="CrearReporte.html">Crear Reporte</a></li>
                 <li><a href="inicioFULL.html">Inicio de sesion</a></li>
             </ul>
-            <div class="logo" >EcoTecNM</div>
+            <div class="logo">EcoTecNM</div>
         </nav>
     </header>
     <main>
         <h2>¡Tu voz por un campus mejor!</h2>
 
-        <div class="card-container">
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <div class="card">
-                <img src="imagenes/images.jpeg" alt="Placeholder Image">
-                <h3>Título Problema</h3>
-                <p>Descripción Corta</p>
-            </div>
-            <!-- Puedes seguir añadiendo más cards aquí -->
+        <div class="card-container" id="reportes-container">
+
         </div>
+
+        <!-- Este script sirve para traer los reportes -->
+        <script>
+            // Función para truncar una cadena si es demasiado larga
+            function truncarTexto(texto, longitudMaxima) {
+                if (texto.length > longitudMaxima) {
+                    return texto.substring(0, longitudMaxima) + '...';
+                } else {
+                    return texto;
+                }
+            }
+
+            // Espera a que el DOM esté completamente cargado
+            document.addEventListener("DOMContentLoaded", function () {
+                // Realiza una solicitud AJAX para obtener los reportes
+                fetch('/api/reportes')
+                    .then(response => response.json())
+                    .then(data => {
+                        // Formatea los datos en el formato HTML deseado
+                        const html = data.map(reporte => {
+                            // Verificar si evidencia_imagen es null o undefined
+                            if (reporte.evidencia_imagen) {
+                                // Convertir los datos binarios de la imagen en una URL de imagen
+                                const blob = new Blob([Uint8Array.from(reporte.evidencia_imagen.data)], { type: 'image/jpeg' });
+                                const imageUrl = URL.createObjectURL(blob);
+                                // Truncar la descripción si es demasiado larga
+                                const descripcionCorta = truncarTexto(reporte.descripcion, 100); // Cambia 100 al número máximo de caracteres deseado
+                                // Generar la tarjeta del reporte con la imagen
+                                return `
+                            <div class="card">
+                                <img src="${imageUrl}" alt="Imagen de reporte">
+                                <h3>${reporte.titulo}</h3>
+                                <p>${descripcionCorta}</p>
+                            </div>
+                        `;
+                            } else {
+                                // Si evidencia_imagen es null, devolver una cadena vacía
+                                return '';
+                            }
+                        }).join('');
+
+                        // Actualiza el contenido del contenedor con el HTML generado
+                        document.getElementById('reportes-container').innerHTML = html;
+                    })
+                    .catch(error => console.error('Error al obtener reportes:', error));
+            });
+        </script>
+
     </main>
 </body>
+
 </html>

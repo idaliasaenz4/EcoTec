@@ -272,27 +272,18 @@ const app = (app) => {
     
     // Ruta para obtener todos los reportes
     app.get('/api/reportes', (req, res) => {
-    pool.query('SELECT * FROM Reportes', (error, results) => {
-        if (error) {
-            console.error('Error al obtener reportes:', error);
-            return res.status(500).json({ error: 'Error interno del servidor' });
-        }
-        res.status(200).json(results);
+        pool.query('SELECT * FROM Reportes', (error, results) => {
+            if (error) {
+                console.error('Error al obtener reportes:', error);
+                return res.status(500).json({ error: 'Error interno del servidor' });
+            }
+    
+            res.status(200).json(results);
+        });
     });
-    });
-
+    
     // Ruta para obtener un solo reporte por ID
     app.get('/api/reportes/:id', (req, res) => {
-    const token = req.headers['authorization'];
-    if (!token) {
-        return res.status(401).json({ error: 'Token no proporcionado' });
-    }
-
-    const decodedToken = verificarToken(token);
-    if (!decodedToken) {
-        return res.status(401).json({ error: 'Token inválido' });
-    }
-
     const id = req.params.id;
     pool.query('SELECT * FROM Reportes WHERE id = ?', [id], (error, results) => {
         if (error) {

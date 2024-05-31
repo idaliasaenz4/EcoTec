@@ -315,3 +315,33 @@ body{
             display: flex;
             flex-wrap: wrap;
         }
+
+        .images-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .image-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        .image-wrapper img {
+            display: block;
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .delete-button {
+            background-color: transparent;
+            border: none;
+            color: red;
+            font-size: 16px;
+            font-weight: bold;
+            position: absolute;
+            top: 0;
+            right: 0;
+            cursor: pointer;
+            padding: 2px;
+        }

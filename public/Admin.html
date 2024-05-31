@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ECOTecNM Delicias</title>
     <link rel="stylesheet" href="css/admin.css">
 </head>
+
 <body>
     <header>
         <header>
@@ -22,161 +24,140 @@
                     </div>
                 </div>
             </header>
-            
+
         </header>
-        
     </header>
     <nav>
+        
         <select id="filtro" name="filtro">
-            <option value="">Seleccione un filtro</option>
-            <optgroup label="Quejas">
-                <option value="reporte">Reporte</option>
-                <option value="sugerencia">Sugerencia</option>
-                <option value="queja">Queja</option>
-            </optgroup>
-        </select>     
+            <option value="">Todos lo Reportes</option>
+        </select>
     </nav>
     <br>
     <main>
         <a href="Admin2.html">
-            <div class="card-container">
-                <div class="card">
-                    <img src="imagenes/reporte.png" alt="Icono">
-                    <h3>Título Problema</h3>
-                    <p>Descripción Corta</p>
-                    <p> ¿Tu aporte es queja, reporte o sugerencia?</p>
-                </div>
+            <div id="reportes-container">
+
             </div>
         </a>
-        <a href="Admin2.html">
-            <div class="card-container">
-                <div class="card">
-                    <img src="imagenes/reporte.png" alt="Icono">
-                    <h3>Título Problema</h3>
-                    <p>Descripción Corta</p>
-                    <p> ¿Tu aporte es queja, reporte o sugerencia?</p>
-                </div>
-            </div>
-        </a>
-        <a href="Admin2.html">
-            <div class="card-container">
-                <div class="card">
-                    <img src="imagenes/reporte.png" alt="Placeholder Image">
-                    <h3>Título Problema</h3>
-                    <p>Descripción Corta</p>
-                    <p> ¿Tu aporte es queja, reporte o sugerencia?</p>
-                </div>
-            </div>
-        </a>
-        <a href="Admin2.html">
-            <div class="card-container">
-                <div class="card">
-                    <img src="imagenes/reporte.png" alt="Placeholder Image">
-                    <h3>Título Problema</h3>
-                    <p>Descripción Corta</p>
-                    <p> ¿Tu aporte es queja, reporte o sugerencia?</p>
-                </div>
-            </div>
-        </a>
-        <a href="Admin2.html">
-            <div class="card-container">
-                <div class="card">
-                    <img src="imagenes/reporte.png" alt="Placeholder Image">
-                    <h3>Título Problema</h3>
-                    <p>Descripción Corta</p>
-                    <p> ¿Tu aporte es queja, reporte o sugerencia?</p>
-                </div>
-            </div>
-        </a>
-        <a href="Admin2.html">
-            <div class="card-container">
-                <div class="card">
-                    <img src="imagenes/reporte.png" alt="Placeholder Image">
-                    <h3>Título Problema</h3>
-                    <p>Descripción Corta</p>
-                    <p> ¿Tu aporte es queja, reporte o sugerencia?</p>
-                </div>
-            </div>
-        </a>
-        <a href="Admin2.html">
-            <div class="card-container">
-                <div class="card">
-                    <img src="imagenes/reporte.png" alt="Placeholder Image">
-                    <h3>Título Problema</h3>
-                    <p>Descripción Corta</p>
-                    <p> ¿Tu aporte es queja, reporte o sugerencia?</p>
-                </div>
-            </div>
-        </a>
-        <a href="Admin2.html">
-            <div class="card-container">
-                <div class="card">
-                    <img src="imagenes/reporte.png" alt="Placeholder Image">
-                    <h3>Título Problema</h3>
-                    <p>Descripción Corta</p>
-                    <p> ¿Tu aporte es queja, reporte o sugerencia?</p>
-                </div>
-            </div>
-        </a>
-        <a href="Admin2.html">
-            <div class="card-container">
-                <div class="card">
-                    <img src="imagenes/reporte.png" alt="Placeholder Image">
-                    <h3>Título Problema</h3>
-                    <p>Descripción Corta</p>
-                    <p> ¿Tu aporte es queja, reporte o sugerencia?</p>
-                </div>
-            </div>
-        </a>
-        <a href="Admin2.html">
-            <div class="card-container">
-                <div class="card">
-                    <img src="imagenes/reporte.png" alt="Placeholder Image">
-                    <h3>Título Problema</h3>
-                    <p>Descripción Corta</p>
-                    <p> ¿Tu aporte es queja, reporte o sugerencia?</p>
-                </div>
-            </div>
-        </a>
-        <a href="Admin2.html">
-            <div class="card-container">
-                <div class="card">
-                    <img src="imagenes/reporte.png" alt="Placeholder Image">
-                    <h3>Título Problema</h3>
-                    <p>Descripción Corta</p>
-                    <p> ¿Tu aporte es queja, reporte o sugerencia?</p>
-                </div>
-            </div>
-        </a>
-        <a href="Admin2.html">
-            <div class="card-container">
-                <div class="card">
-                    <img src="imagenes/reporte.png" alt="Placeholder Image">
-                    <h3>Título Problema</h3>
-                    <p>Descripción Corta</p>
-                    <p> ¿Tu aporte es queja, reporte o sugerencia?</p>
-                </div>
-            </div>
-        </a>
+
+
 
     </main>
     <footer>
         <button id="logout-button">Cerrar sesión</button>
         <button id="register-button">Registrar un Administrador</button>
     </footer>
-    
+    <!-- Este script sirve para los botones cerrar sesion y registrar un admnin -->
     <script>
-        document.getElementById("logout-button").addEventListener("click", function() {
+        document.getElementById("logout-button").addEventListener("click", function () {
             window.location.href = "inicioFULL.html";
         });
-    </script>
-    
-    <script>
-        document.getElementById("register-button").addEventListener("click", function() {
+
+        document.getElementById("register-button").addEventListener("click", function () {
             window.location.href = "Registrarse.html";
         });
     </script>
-   
+
+    <!-- Este script sirve para traer los reportes -->
+    <script>    // Función para truncar una cadena si es demasiado larga
+        function truncarTexto(texto, longitudMaxima) {
+            if (texto.length > longitudMaxima) {
+                return texto.substring(0, longitudMaxima) + '...';
+            } else {
+                return texto;
+            }
+        }
+
+        // Variable global para almacenar los reportes
+        let reportes = [];
+
+        // Espera a que el DOM esté completamente cargado
+        document.addEventListener("DOMContentLoaded", function () {
+            // Realiza una solicitud AJAX para obtener los reportes
+            fetch('/api/reportes')
+                .then(response => response.json())
+                .then(data => {
+                    reportes = data;
+                    const tiposReporte = obtenerTiposReporteUnicos(reportes);
+                    agregarOpcionesFiltro(tiposReporte);
+                    mostrarReportes(reportes);
+                })
+                .catch(error => console.error('Error al obtener reportes:', error));
+        });
+
+        // Función para obtener tipos de reporte únicos
+        function obtenerTiposReporteUnicos(reportes) {
+            const tipos = new Set();
+            reportes.forEach(reporte => {
+                if (reporte.tipo_reporte) {
+                    tipos.add(reporte.tipo_reporte);
+                }
+            });
+            return Array.from(tipos);
+        }
+
+        // Función para agregar opciones de filtro al select
+        function agregarOpcionesFiltro(tiposReporte) {
+            const filtroSelect = document.getElementById('filtro');
+            tiposReporte.forEach(tipo => {
+                const option = document.createElement('option');
+                option.value = tipo;
+                option.textContent = tipo.charAt(0).toUpperCase() + tipo.slice(1);
+                filtroSelect.appendChild(option);
+            });
+        }
+
+        // Función para mostrar reportes filtrados
+        function mostrarReportes(reportesFiltrados) {
+            const html = reportesFiltrados.map(reporte => {
+                // Verificar si evidencia_imagen es null o undefined
+                if (reporte.evidencia_imagen) {
+                    // Convertir los datos binarios de la imagen en una URL de imagen
+                    const blob = new Blob([Uint8Array.from(reporte.evidencia_imagen.data)], { type: 'image/jpeg' });
+                    const imageUrl = URL.createObjectURL(blob);
+                    // Truncar la descripción si es demasiado larga
+                    const descripcionCorta = truncarTexto(reporte.descripcion, 100); // Cambia 100 al número máximo de caracteres deseado
+                    // Generar la tarjeta del reporte con la imagen
+                    return `
+                    <div class="card-container" data-id="${reporte.id}">
+                        <div class="card">
+                            <img src="${imageUrl}" alt="Imagen de reporte">
+                            <h3>${reporte.titulo}</h3>
+                            <p>${descripcionCorta}</p>
+                            <p>${reporte.tipo_reporte}</p>
+                        </div>
+                    </div>
+                `;
+                } else {
+                    // Si evidencia_imagen es null, devolver una cadena vacía
+                    return '';
+                }
+            }).join('');
+
+            // Actualiza el contenido del contenedor con el HTML generado
+            document.getElementById('reportes-container').innerHTML = html;
+
+            // Añadir eventos de clic a cada tarjeta de reporte
+            document.querySelectorAll('.card-container').forEach(card => {
+                card.addEventListener('click', function () {
+                    const reporteId = this.getAttribute('data-id');
+                    window.location.href = `Admin2.html?id=${reporteId}`;
+                });
+            });
+        }
+
+        // Añadir evento de cambio al select para filtrar los reportes
+        document.getElementById('filtro').addEventListener('change', function () {
+            const filtroSeleccionado = this.value;
+            const reportesFiltrados = reportes.filter(reporte =>
+                filtroSeleccionado === '' || reporte.tipo_reporte === filtroSeleccionado
+            );
+            mostrarReportes(reportesFiltrados);
+        });
+    </script>
+
+
 </body>
 
 </html>

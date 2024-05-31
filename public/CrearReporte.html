@@ -24,7 +24,7 @@
         <div class="problem-section">
             <input id="titulo" type="text" placeholder="Ingresa el título de su problema">
             <hr class="tsuru">
-            <textarea id="descripcion" placeholder="Describe el problema" ></textarea>
+            <textarea id="descripcion" placeholder="Describe el problema"></textarea>
         </div>
         <div class="report-requirements">
             <h3>Requisitos del Reporte</h3>
@@ -64,6 +64,19 @@
                 return;
             }
 
+            // Validación de número de control máximo 7 caracteres
+            if (numero_control.length > 8) {
+                alert('Ingresa un número de control valido.');
+                return;
+            }
+
+            // Validación de correo electrónico válido
+            const correoRegex = /^[a-zA-Z0-9._%+-]+@(Gmail|Hotmail)\.com$/;
+            if (!correoRegex.test(correo)) {
+                alert('Por favor introduce un correo válido de Gmail o Hotmail.');
+                return;
+            }
+
             axios.post('/api/reportes', {
                 titulo: titulo,
                 descripcion: descripcion,
@@ -71,18 +84,19 @@
                 correo: correo,
                 tipo_reporte: tipo_reporte
             })
-            .then(response => {
-                const reporteId = response.data.id;
-                alert('Reporte creado con éxito. Tu número de reporte es: ' + reporteId);
-                // Ejecutar la acción al crear el reporte exitosamente
-                window.location.href = 'CrearReporteEvidencia.html'; 
-            })
+                .then(response => {
+                    const reporteId = response.data.id;
+                    alert('Reporte creado con éxito. Tu número de reporte es: ' + reporteId);
+                    // Ejecutar la acción al crear el reporte exitosamente
+                    window.location.href = 'CrearReporteEvidencia.html';
+                })
                 .catch(error => {
                     console.error('Error al crear el reporte:', error);
                     alert('Hubo un error al crear el reporte.');
                 });
         }
     </script>
+
 
 
 

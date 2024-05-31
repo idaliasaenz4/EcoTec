@@ -1,11 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ECOTecNM Delicias</title>
     <link rel="stylesheet" href="css/admin2.css">
 </head>
+
 <body>
     <header>
         <div class="header-container">
@@ -19,6 +21,8 @@
         <div class="report-container">
             <h2><input type="text" value="Título del Problema"></h2>
             <p><textarea>Descripción del problema.</textarea></p>
+     
+            </div>
 
             <div class="verification-container">
                 <h3>Verificación para envío a administración</h3>
@@ -53,23 +57,23 @@
         </div>
     </main>
     <footer>
-        <button>Cerrar sesión</button>
+        <button id="register-button">Regresar</button>
     </footer>
     <script>
         function uploadImage() {
             const fileInput = document.getElementById('image-upload');
             const preview = document.getElementById('image-preview');
-            
+
             const file = fileInput.files[0];
             const reader = new FileReader();
-            
+
             reader.addEventListener('load', function () {
                 const image = new Image();
                 image.src = reader.result;
                 preview.innerHTML = '';
                 preview.appendChild(image);
             }, false);
-            
+
             if (file) {
                 reader.readAsDataURL(file);
             }
@@ -83,5 +87,43 @@
             alert("Reporte eliminado");
         }
     </script>
+
+ <!-- Este script sirve para traer un reporte especifico -->
+ <script>
+    // Función para obtener el valor de un parámetro de la URL
+    function obtenerParametroURL(nombre) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(nombre);
+    }
+
+    // Espera a que el DOM esté completamente cargado
+    document.addEventListener("DOMContentLoaded", function () {
+        const reporteId = obtenerParametroURL('id');
+        if (reporteId) {
+            fetch(`/api/reportes/${reporteId}`)
+                .then(response => response.json())
+                .then(data => {
+                    // Mostrar los detalles del reporte en la página
+                    const tituloInput = document.getElementById('tituloReporte');
+                    const descripcionTextarea = document.getElementById('descripcionReporte');
+
+                    // Asigna los datos obtenidos a los elementos HTML
+                    tituloInput.value = data.titulo;
+                    descripcionTextarea.value = data.descripcionCorta;
+                })
+                .catch(error => console.error('Error al obtener el reporte:', error));
+        } else {
+            console.error('ID de reporte no proporcionado en la URL');
+        }
+    });
+</script>
+
+     <!-- Este script sirve para los botones cerrar sesion y registrar un admnin -->
+    <script>
+        document.getElementById("register-button").addEventListener("click", function () {
+            window.location.href = "Admin.html";
+        });
+    </script>
 </body>
+
 </html>

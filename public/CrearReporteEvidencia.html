@@ -20,7 +20,8 @@
 
     <div class="report-section">
         <div class="report-requirements">
-            <h2>Subir evidencia Opcional</h2>
+            <h2>Subir evidencia Obligatorio</h2>
+            <label>Si no se sube evidencia tu reporte no sera tomado encuenta</label>
             <div class="form-group">
                 <label>No. de Reporte para subir evidencia</label>
                 <input id="numero_Reporte" type="text" placeholder="Número de Reporte">
@@ -28,7 +29,7 @@
             <center> <!-- Sección para cargar imagen -->
                 <div class="image-upload">
                     <input type="file" id="fileInput" accept="image/*" multiple>
-                    <button class="upload-button" onclick="handleUpload()">Cargar Imágenes</button>
+                    <button class="upload-button" onclick="handleUpload()">Cargar evidencia</button>
                     <div class="images-container"></div>
                 </div>
             </center>
@@ -49,28 +50,28 @@
             // Obtener el número de reporte y la imagen cargada
             const numeroReporte = numeroReporteInput.value;
             const imagen = fileInput.files[0];
-
+    
             // Verificar que se haya seleccionado una imagen
             if (!imagen) {
                 alert('Por favor, seleccione una imagen para subir.');
                 return;
             }
-
+    
             // Crear un FormData para enviar el número de reporte y la imagen al servidor
             const formData = new FormData();
             formData.append('evidencia_imagen', imagen);
-
+    
             // Realizar la solicitud POST al servidor para subir la imagen
             fetch(`/api/reportes/${numeroReporte}/evidencia`, {
                 method: 'POST',
                 body: formData
             })
             .then(response => {
-            if (response.ok) {
-                alert('Evidencia subida con éxito');
-                // Ejecutar la acción al subir la evidencia exitosamente
-                window.location.href = 'index.html'; 
-            } else {
+                if (response.ok) {
+                    alert('Evidencia subida con éxito');
+                    // Ejecutar la acción al subir la evidencia exitosamente
+                    window.location.href = 'index.html'; 
+                } else {
                     throw new Error('Error al subir la evidencia');
                 }
             })
@@ -79,35 +80,67 @@
                 alert('Hubo un error al subir la evidencia. Por favor, intenta de nuevo.');
             });
         }
-
+    
         // Script para cargar imagen
         document.addEventListener('DOMContentLoaded', () => {
             const fileInput = document.getElementById('fileInput');
             const uploadButton = document.querySelector('.upload-button');
             const imagesContainer = document.querySelector('.images-container');
-
+            let imageCount = 0;
+    
             uploadButton.addEventListener('click', () => {
                 fileInput.click();
             });
-
+    
             fileInput.addEventListener('change', (event) => {
                 const files = Array.from(event.target.files);
-
+    
                 files.forEach((file) => {
                     if (file) {
                         const reader = new FileReader();
                         reader.onload = (e) => {
+                            // Crear un contenedor para la imagen y el botón de eliminar
+                            const container = document.createElement('div');
+                            container.style.position = 'relative';
+                            container.style.display = 'inline-block';
+                            container.style.margin = '10px';
+    
+                            // Crear la imagen
                             const img = document.createElement('img');
                             img.src = e.target.result;
-                            imagesContainer.appendChild(img);
+                            img.style.maxWidth = '150px';
+                            img.style.maxHeight = '150px';
+                            img.style.display = 'block';
+    
+                            // Crear un botón para eliminar la imagen
+                            const deleteButton = document.createElement('button');
+                            deleteButton.innerHTML = '<span style="color: red; font-size: 12px;">&#10005;</span>';
+                            deleteButton.style.backgroundColor = 'transparent';
+                            deleteButton.style.border = 'none';
+                            deleteButton.style.position = 'absolute';
+                            deleteButton.style.top = '5px';
+                            deleteButton.style.right = '5px';
+                            deleteButton.style.cursor = 'pointer';
+                            deleteButton.addEventListener('click', () => {
+                                imagesContainer.removeChild(container); // Eliminar el contenedor que contiene la imagen y el botón
+                                imageCount--; // Decrementar el contador de imágenes
+                            });
+    
+                            // Añadir la imagen y el botón al contenedor
+                            container.appendChild(img);
+                            container.appendChild(deleteButton);
+    
+                            // Añadir el contenedor al contenedor de imágenes
+                            imagesContainer.appendChild(container);
+                            imageCount++;
                         };
                         reader.readAsDataURL(file);
                     }
                 });
             });
         });
-        
     </script>
+    
 
 
 
