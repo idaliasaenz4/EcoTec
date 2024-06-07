@@ -19,10 +19,9 @@
     </header>
     <main>
         <div class="report-container">
-            <h2><input type="text" value="Título del Problema"></h2>
-            <p><textarea>Descripción del problema.</textarea></p>
-     
-            </div>
+            <h2><input id="tituloReporte" type="text" value="Título del Problema"></h2>
+            <p><textarea id="descripcionReporte">Descripción del problema.</textarea></p>
+        </div>
 
             <div class="verification-container">
                 <h3>Verificación para envío a administración</h3>
@@ -109,7 +108,7 @@
 
                     // Asigna los datos obtenidos a los elementos HTML
                     tituloInput.value = data.titulo;
-                    descripcionTextarea.value = data.descripcionCorta;
+                    descripcionTextarea.value = data.descripcion;
                 })
                 .catch(error => console.error('Error al obtener el reporte:', error));
         } else {
